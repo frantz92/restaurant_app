@@ -1,25 +1,78 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+
+import store from './redux/store.js';
+
+import MainLayout from './components/layout/MainLayout/MainLayout';
+
+import Booking from './components/views/Booking/Booking';
+import Dashboard from './components/views/Dashboard/Dashboard';
+import Event from './components/views/Event/Event';
+import Kitchen from './components/views/Kitchen/Kitchen';
+import Login from './components/views/Login/Login';
+import NewOrder from './components/views/New/NewOrderContainer';
+import Order from './components/views/Order/Order';
+import Ordering from './components/views/Ordering/Ordering';
+import Tables from './components/views/Tables/Tables';
 
 function App() {
+  console.log(window.location);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <BrowserRouter basename={'/panel'}>
+        <MainLayout>
+          <Switch>
+            <Route
+              exact
+              path={process.env.PUBLIC_URL + '/tables/booking/:id'}
+              component={Booking}
+            />
+            <Route
+              exact
+              path={process.env.PUBLIC_URL + '/'}
+              component={Dashboard}
+            />
+            <Route
+              exact
+              path={process.env.PUBLIC_URL + '/tables/event/:id'}
+              component={Event}
+            />
+            <Route
+              exact
+              path={process.env.PUBLIC_URL + '/kitchen'}
+              component={Kitchen}
+            />
+            <Route
+              exact
+              path={process.env.PUBLIC_URL + '/login'}
+              component={Login}
+            />
+            <Route
+              exact
+              path={process.env.PUBLIC_URL + '/ordering/new'}
+              component={NewOrder}
+            />
+            <Route
+              exact
+              path={process.env.PUBLIC_URL + '/ordering/order/:id'}
+              component={Order}
+            />
+            <Route
+              exact
+              path={process.env.PUBLIC_URL + '/ordering'}
+              component={Ordering}
+            />
+            <Route
+              exact
+              path={process.env.PUBLIC_URL + '/tables'}
+              component={Tables}
+            />
+          </Switch>
+        </MainLayout>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
